@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>中文记忆力训练游戏</title>
+    <title>Li Ziqi Knowledge Test</title>
     <style>
-        /* 样式代码，与之前类似 */
+        /* Styles for the game page */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +17,7 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            background-color: #f0f0f0;
+            background-color: #fafafa;
         }
         #game {
             flex: 1;
@@ -29,27 +29,30 @@
         #title {
             font-size: 36px;
             margin-bottom: 20px;
+            text-align: center;
         }
         #description {
             font-size: 18px;
             margin-bottom: 40px;
             text-align: center;
             width: 80%;
+            line-height: 1.5;
         }
         #startButton, #submitButton, #nextButton, #restartButton {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 18px;
             cursor: pointer;
             margin-top: 20px;
+            border: none;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 5px;
         }
-        #wordDisplay {
-            font-size: 48px;
+        #questionDisplay {
+            font-size: 28px;
             margin-bottom: 20px;
-        }
-        #translationDisplay {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #555;
+            text-align: center;
+            width: 80%;
         }
         #countdown {
             font-size: 24px;
@@ -65,6 +68,7 @@
             font-size: 18px;
             width: 300px;
             text-align: center;
+            margin-bottom: 20px;
         }
         #levelIndicators {
             display: flex;
@@ -77,7 +81,7 @@
             height: 30px;
             background-color: #ccc;
             margin: 5px;
-            border-radius: 5px;
+            border-radius: 50%;
         }
         .correct {
             background-color: #4caf50 !important;
@@ -93,39 +97,47 @@
         #finalScore {
             font-size: 32px;
             margin-bottom: 20px;
+            text-align: center;
+        }
+        #evaluation {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div id="game">
-        <div id="title">中文记忆力训练游戏</div>
+        <div id="title">Li Ziqi Knowledge Test</div>
         <div id="description">
-            游戏规则：<br>
-            游戏有20关，每一关都是5秒钟，从您选择的中文词汇中挑选出1到20个字的词语。<br>
-            每一关会出现一个对应长度的中文词语和其英文翻译，请在5秒内记住它。<br>
-            时间结束后，输入你记住的中文词语，看看能否答对。<br>
-            游戏顶部有一行20个格子，每一个格子代表一关，<br>
-            答对显示绿色，答错显示红色。<br>
-            最后20关结束后，显示你的总分，得分越高越优秀！
+            <p>
+                <strong>Game Rules:</strong><br>
+                The game consists of 20 levels, each lasting 5 seconds.<br>
+                In each level, a question about Chinese foods or items featured in Li Ziqi's videos will appear.<br>
+                You have 5 seconds to read and memorize the question.<br>
+                After the countdown, type your answer in the input box.<br>
+                The top of the game shows 20 indicators, each representing a level.<br>
+                A green indicator means a correct answer; red means incorrect.<br>
+                At the end of the game, your total score will be displayed.<br>
+                Scores above 840 points are considered excellent. The higher your score, the better!
+            </p>
         </div>
-        <button id="startButton">开始游戏</button>
-        <div id="wordDisplay" style="display:none;"></div>
-        <div id="translationDisplay" style="display:none;"></div>
-        <div id="countdown" style="display:none;">倒计时：5秒</div>
+        <button id="startButton">Start Game</button>
+        <div id="questionDisplay" style="display:none;"></div>
+        <div id="countdown" style="display:none;">Countdown: 5 seconds</div>
         <div id="inputArea" style="display:none;">
-            <input type="text" id="userInput" placeholder="输入你记住的中文">
-            <button id="submitButton">提交</button>
+            <input type="text" id="userInput" placeholder="Type your answer here">
+            <button id="submitButton">Submit</button>
         </div>
         <div id="result" style="display:none;"></div>
-        <button id="nextButton" style="display:none;">下一关</button>
-        <button id="restartButton" style="display:none;">重新开始</button>
+        <button id="nextButton" style="display:none;">Next Level</button>
+        <button id="restartButton" style="display:none;">Restart Game</button>
         <div id="levelIndicators" style="display:none;"></div>
     </div>
 
     <script>
         const startButton = document.getElementById('startButton');
-        const wordDisplay = document.getElementById('wordDisplay');
-        const translationDisplay = document.getElementById('translationDisplay');
+        const questionDisplay = document.getElementById('questionDisplay');
         const countdown = document.getElementById('countdown');
         const inputArea = document.getElementById('inputArea');
         const userInput = document.getElementById('userInput');
@@ -140,32 +152,33 @@
         let currentLevel = 1;
         let totalLevels = 20;
         let score = 0;
-        let wordToRemember = '';
+        let currentQuestion = '';
+        let currentAnswer = '';
         let countdownTimer;
         let countdownSeconds = 5;
 
-        // 更新的中文词语和对应的英文翻译
-        const words = [
-            { chinese: '田园', english: 'Pastoral' },
-            { chinese: '自然', english: 'Nature' },
-            { chinese: '美食', english: 'Cuisine' },
-            { chinese: '手工', english: 'Handmade' },
-            { chinese: '传统', english: 'Tradition' },
-            { chinese: '农村', english: 'Countryside' },
-            { chinese: '生活', english: 'Life' },
-            { chinese: '美丽', english: 'Beautiful' },
-            { chinese: '安静', english: 'Quiet' },
-            { chinese: '幸福', english: 'Happiness' },
-            { chinese: '收获', english: 'Harvest' },
-            { chinese: '季节', english: 'Season' },
-            { chinese: '食材', english: 'Ingredients' },
-            { chinese: '烹饪', english: 'Cooking' },
-            { chinese: '艺术', english: 'Art' },
-            { chinese: '家庭', english: 'Family' },
-            { chinese: '文化', english: 'Culture' },
-            { chinese: '创意', english: 'Creativity' },
-            { chinese: '花园', english: 'Garden' },
-            { chinese: '笑声', english: 'Laughter' }
+        // Questions and Answers about Chinese foods and items
+        const quizData = [
+            { question: 'What is the traditional Chinese tea made from fermented leaves?', answer: 'Pu-erh tea' },
+            { question: 'Name the Chinese festival where mooncakes are traditionally eaten.', answer: 'Mid-Autumn Festival' },
+            { question: 'What is the staple food made from soybeans, commonly used in Chinese cuisine?', answer: 'Tofu' },
+            { question: 'What is the traditional Chinese clothing for women called?', answer: 'Cheongsam' },
+            { question: 'Name the Chinese art of paper folding.', answer: 'Origami' },
+            { question: 'What is the Chinese fermented bean paste used as seasoning?', answer: 'Doubanjiang' },
+            { question: 'Name the Chinese cooking technique that involves quick frying in a small amount of oil.', answer: 'Stir-fry' },
+            { question: 'What is the Chinese dumpling commonly eaten during the Spring Festival?', answer: 'Jiaozi' },
+            { question: 'Name the stringed musical instrument often featured in Chinese music.', answer: 'Guzheng' },
+            { question: 'What is the Chinese art of beautiful handwriting?', answer: 'Calligraphy' },
+            { question: 'Name the traditional Chinese philosophy emphasizing harmony with nature.', answer: 'Taoism' },
+            { question: 'What is the Chinese alcoholic beverage made from fermented rice?', answer: 'Rice wine' },
+            { question: 'Name the Chinese practice of arranging objects to create harmony.', answer: 'Feng Shui' },
+            { question: 'What is the popular Chinese dish made of noodles in broth?', answer: 'Ramen' },
+            { question: 'Name the Chinese steamed bun filled with meat or vegetables.', answer: 'Baozi' },
+            { question: 'What is the Chinese technique of healing using needles?', answer: 'Acupuncture' },
+            { question: 'Name the traditional Chinese martial art.', answer: 'Kung Fu' },
+            { question: 'What is the Chinese dessert made from glutinous rice flour eaten during Lantern Festival?', answer: 'Tangyuan' },
+            { question: 'Name the Chinese philosophy focused on ethics and social harmony.', answer: 'Confucianism' },
+            { question: 'What is the Chinese festival celebrated with dragon boat races?', answer: 'Dragon Boat Festival' }
         ];
 
         const levelPoints = Array.from({length: totalLevels}, (_, i) => (i + 1) * 5);
@@ -193,25 +206,22 @@
         }
 
         function startLevel() {
-            wordToRemember = words[currentLevel - 1].chinese;
-            const englishTranslation = words[currentLevel - 1].english;
-            wordDisplay.textContent = wordToRemember;
-            translationDisplay.textContent = `英文翻译：${englishTranslation}`;
-            wordDisplay.style.display = 'block';
-            translationDisplay.style.display = 'block';
+            currentQuestion = quizData[currentLevel - 1].question;
+            currentAnswer = quizData[currentLevel - 1].answer.toLowerCase();
+            questionDisplay.textContent = currentQuestion;
+            questionDisplay.style.display = 'block';
             countdown.style.display = 'block';
             countdownSeconds = 5;
-            countdown.textContent = `倒计时：${countdownSeconds}秒`;
+            countdown.textContent = `Countdown: ${countdownSeconds} seconds`;
             countdownTimer = setInterval(updateCountdown, 1000);
         }
 
         function updateCountdown() {
             countdownSeconds--;
-            countdown.textContent = `倒计时：${countdownSeconds}秒`;
+            countdown.textContent = `Countdown: ${countdownSeconds} seconds`;
             if(countdownSeconds <= 0) {
                 clearInterval(countdownTimer);
-                wordDisplay.style.display = 'none';
-                translationDisplay.style.display = 'none';
+                questionDisplay.style.display = 'none';
                 countdown.style.display = 'none';
                 inputArea.style.display = 'flex';
                 userInput.value = '';
@@ -220,20 +230,20 @@
         }
 
         function checkAnswer() {
-            let userAnswer = userInput.value.trim();
+            let userAnswer = userInput.value.trim().toLowerCase();
             inputArea.style.display = 'none';
             result.style.display = 'block';
             nextButton.style.display = 'block';
 
             const indicators = document.querySelectorAll('.levelIndicator');
 
-            if(userAnswer === wordToRemember) {
-                result.textContent = '答对了！';
+            if(userAnswer === currentAnswer) {
+                result.textContent = 'Correct!';
                 result.style.color = '#4caf50';
                 indicators[currentLevel - 1].classList.add('correct');
                 score += levelPoints[currentLevel - 1];
             } else {
-                result.textContent = `答错了！正确答案是：${wordToRemember}`;
+                result.textContent = `Incorrect! The correct answer is: ${quizData[currentLevel - 1].answer}`;
                 result.style.color = '#f44336';
                 indicators[currentLevel - 1].classList.add('incorrect');
             }
@@ -252,8 +262,7 @@
 
         function endGame() {
             levelIndicators.style.display = 'none';
-            wordDisplay.style.display = 'none';
-            translationDisplay.style.display = 'none';
+            questionDisplay.style.display = 'none';
             countdown.style.display = 'none';
             inputArea.style.display = 'none';
             result.style.display = 'none';
@@ -262,16 +271,16 @@
 
             const finalScore = document.createElement('div');
             finalScore.id = 'finalScore';
-            finalScore.textContent = `你的总得分是：${score} 分`;
+            finalScore.textContent = `Your total score is: ${score} points`;
             game.appendChild(finalScore);
 
             const evaluation = document.createElement('div');
             evaluation.id = 'evaluation';
             if(score >= 840) {
-                evaluation.textContent = '优秀！';
+                evaluation.textContent = 'Excellent!';
                 evaluation.style.color = '#4caf50';
             } else {
-                evaluation.textContent = '继续加油！';
+                evaluation.textContent = 'Keep trying!';
                 evaluation.style.color = '#f44336';
             }
             game.appendChild(evaluation);
@@ -280,7 +289,8 @@
         function restartGame() {
             currentLevel = 1;
             score = 0;
-            wordToRemember = '';
+            currentQuestion = '';
+            currentAnswer = '';
             restartButton.style.display = 'none';
             const finalScore = document.getElementById('finalScore');
             const evaluation = document.getElementById('evaluation');
