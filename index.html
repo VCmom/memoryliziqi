@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
-    <title>LiZiQI Chinese Memory Test</title>
-    <meta name="description" content="Enhance your memory with the LiZiQI Chinese Memory Test. Learn Chinese words inspired by Li Ziqi's videos and challenge your memory skills.">
-    <meta name="keywords" content="LiZiQI, Chinese Memory Test, Memory Game, Learn Chinese, Li Ziqi, Chinese Vocabulary">
+    <title>Li Ziqi Chinese Memory Test - Learn Chinese with Fun</title>
+    <meta name="description" content="Enhance your memory and learn Chinese with the Li Ziqi Chinese Memory Test. Challenge yourself with questions about Chinese culture, foods, and items featured in Li Ziqi's videos.">
+    <meta name="keywords" content="Li Ziqi, Chinese Memory Test, Learn Chinese, Chinese Culture, Memory Game, Li Ziqi Videos">
+
+    <!-- Responsive Design Meta Tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph Meta Tags for better SEO -->
-    <meta property="og:title" content="LiZiQI Chinese Memory Test">
-    <meta property="og:description" content="Enhance your memory with the LiZiQI Chinese Memory Test. Learn Chinese words inspired by Li Ziqi's videos and challenge your memory skills.">
+    <!-- Open Graph Meta Tags for Better SEO and Social Sharing -->
+    <meta property="og:title" content="Li Ziqi Chinese Memory Test - Learn Chinese with Fun">
+    <meta property="og:description" content="Enhance your memory and learn Chinese with the Li Ziqi Chinese Memory Test. Challenge yourself with questions about Chinese culture, foods, and items featured in Li Ziqi's videos.">
     <meta property="og:url" content="https://6for6.cn/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://6for6.cn/images/og-image.jpg">
 
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:title" content="Li Ziqi Chinese Memory Test - Learn Chinese with Fun">
+    <meta name="twitter:description" content="Enhance your memory and learn Chinese with the Li Ziqi Chinese Memory Test.">
+    <meta name="twitter:image" content="https://6for6.cn/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Schema.org Markup for Google -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Li Ziqi Chinese Memory Test",
+        "url": "https://6for6.cn/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://6for6.cn/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
     <!-- Stylesheet -->
     <style>
+        /* Updated styles for better performance and modern design */
         body {
             margin: 0;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #333;
             background-color: #f9f9f9;
+            line-height: 1.6;
         }
         header {
             background-color: #8bc34a;
             color: #fff;
-            padding: 60px 0;
+            padding: 60px 20px;
             text-align: center;
             background-image: url('https://6for6.cn/images/header-bg.jpg');
             background-size: cover;
@@ -49,9 +75,10 @@
             padding: 10px 20px;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }
         nav ul li {
-            margin: 0 15px;
+            margin: 5px 15px;
             font-size: 18px;
         }
         nav ul li a {
@@ -70,14 +97,13 @@
         }
         section p {
             font-size: 18px;
-            line-height: 1.6;
             margin-bottom: 20px;
             text-align: center;
         }
         .iframe-container {
             position: relative;
             overflow: hidden;
-            padding-top: 56.25%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
             margin-bottom: 60px;
         }
         .iframe-container iframe {
@@ -94,6 +120,7 @@
             text-align: center;
             padding: 20px 0;
         }
+        /* Responsive Styles */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 36px;
@@ -102,7 +129,7 @@
                 font-size: 18px;
             }
             nav ul li {
-                margin: 0 10px;
+                margin: 5px 10px;
                 font-size: 16px;
             }
             section h2 {
@@ -115,8 +142,8 @@
 
     <!-- Header Section -->
     <header>
-        <h1>LiZiQI Chinese Memory Test</h1>
-        <p>Challenge your memory and learn Chinese with Li Ziqi</p>
+        <h1>Li Ziqi Chinese Memory Test</h1>
+        <p>Challenge Your Memory and Learn Chinese with Fun</p>
     </header>
 
     <!-- Navigation Bar -->
@@ -126,15 +153,16 @@
             <li><a href="#rules">Game Rules</a></li>
             <li><a href="#scoring">Scoring System</a></li>
             <li><a href="#about">About Li Ziqi</a></li>
+            <li><a href="#faq">FAQ</a></li>
         </ul>
     </nav>
 
     <!-- Game Section -->
     <section id="game">
-        <h2>Play the LiZiQI Chinese Memory Test</h2>
+        <h2>Play the Li Ziqi Chinese Memory Test</h2>
         <p>Enhance your memory by recalling Chinese words inspired by Li Ziqi's videos.</p>
         <div class="iframe-container">
-            <iframe src="https://6for6.cn/game.html" allowfullscreen></iframe>
+            <iframe src="https://6for6.cn/game.html" title="Li Ziqi Chinese Memory Test Game" allowfullscreen></iframe>
         </div>
     </section>
 
@@ -142,14 +170,14 @@
     <section id="rules">
         <h2>Game Rules</h2>
         <p>
-            The LiZiQI Chinese Memory Test is designed to challenge your memory and help you learn Chinese vocabulary.
-            The game consists of 20 levels, each lasting 5 seconds. In each level, you'll be shown a Chinese word along
-            with its English translation. You have 5 seconds to memorize the Chinese word.
+            The Li Ziqi Chinese Memory Test is designed to challenge your memory and help you learn Chinese vocabulary.
+            The game consists of 20 levels, each lasting 5 seconds. In each level, you'll be shown a question about Chinese culture,
+            foods, or items featured in Li Ziqi's videos. You have 5 seconds to read and memorize the question.
         </p>
         <p>
-            After the countdown, you'll be prompted to enter the Chinese word you just saw. If you recall it correctly,
-            you'll earn points based on the level. The difficulty increases with each level, making it a fun and engaging
-            way to enhance your memory and language skills.
+            After the countdown, the question remains visible for 10 more seconds while you type your answer.
+            If you recall it correctly, you'll earn points based on the level. The difficulty increases with each level,
+            making it a fun and engaging way to enhance your memory and language skills.
         </p>
     </section>
 
@@ -157,11 +185,12 @@
     <section id="scoring">
         <h2>Scoring System</h2>
         <p>
-            Your performance in the LiZiQI Chinese Memory Test is evaluated based on the following scoring system:
+            Your performance in the Li Ziqi Chinese Memory Test is evaluated based on the following scoring system:
         </p>
         <ul>
             <li>Level 1: 5 points</li>
             <li>Level 2: 10 points</li>
+            <li>Level 3: 15 points</li>
             <li>...</li>
             <li>Level 20: 100 points</li>
         </ul>
@@ -180,15 +209,42 @@
             cuisine, and craftsmanship.
         </p>
         <p>
-            By playing the LiZiQI Chinese Memory Test, you not only challenge your memory but also immerse yourself in
+            By playing the Li Ziqi Chinese Memory Test, you not only challenge your memory but also immerse yourself in
             the rich vocabulary inspired by Li Ziqi's enchanting videos.
         </p>
     </section>
 
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <h3>How do I play the game?</h3>
+        <p>Click on the "Start Game" button in the game section. Read and memorize the question presented, then type your answer when prompted.</p>
+
+        <h3>Is the game free to play?</h3>
+        <p>Yes, the Li Ziqi Chinese Memory Test is completely free to play.</p>
+
+        <h3>Can I play the game on my mobile device?</h3>
+        <p>Absolutely! The game is optimized for both desktop and mobile devices.</p>
+    </section>
+
     <!-- Footer Section -->
     <footer>
-        &copy; 2023 6for6.cn | LiZiQI Chinese Memory Test
+        &copy; 2023 6for6.cn | Li Ziqi Chinese Memory Test
     </footer>
 
+    <!-- Analytics and Monitoring Scripts -->
+    <!-- Google Analytics Placeholder -->
+    <!-- Replace 'UA-XXXXXXXXX-X' with your actual Tracking ID -->
+    <!--
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q4YM9LMPX0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q4YM9LMPX0');
+</script>
+    -->
 </body>
 </html>
